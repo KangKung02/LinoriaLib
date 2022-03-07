@@ -1391,7 +1391,7 @@ do
         end);
 
         Toggle:Display();
-        Groupbox:AddBlank(Info.BlankSize or 5 + 2);
+        Groupbox:AddBlank(Info.BlankSize or 7);
         Groupbox:Resize();
 
         Toggle.TextLabel = ToggleLabel;
@@ -1930,6 +1930,11 @@ do
             if Dropdown.Changed then Dropdown.Changed() end
         end;
 
+        function Dropdown:NewList(t)
+            Dropdown.Values = (type(t) == "table" and t) or {};
+            Dropdown:SetValues();
+        end
+        
         DropdownOuter.InputBegan:Connect(function(Input)
             if Input.UserInputType == Enum.UserInputType.MouseButton1 and not Library:MouseIsOverOpenedFrame() then
                 if ListOuter.Visible then
