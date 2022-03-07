@@ -117,8 +117,7 @@ local ThemeManager = {} do
 		end)
 
 		groupbox:AddButton('Refresh list', function()
-			Options.ThemeManager_CustomThemeList:SetValues(self:ReloadCustomThemes())
-			Options.ThemeManager_CustomThemeList:SetValue(nil)
+			Options.ThemeManager_CustomThemeList:NewList(self:ReloadCustomThemes())
 		end)
 
 		groupbox:AddButton('Set as default', function()
