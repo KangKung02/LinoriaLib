@@ -1933,8 +1933,9 @@ do
         function Dropdown:NewList(t)
             Dropdown.Values = (type(t) == "table" and t) or {};
             Dropdown:SetValues();
+            Dropdown:SetValue(nil);
         end
-        
+
         DropdownOuter.InputBegan:Connect(function(Input)
             if Input.UserInputType == Enum.UserInputType.MouseButton1 and not Library:MouseIsOverOpenedFrame() then
                 if ListOuter.Visible then
