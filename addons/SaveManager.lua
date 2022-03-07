@@ -1,8 +1,8 @@
 local httpService = game:GetService('HttpService')
-
 local SaveManager = {} do
-	SaveManager.Folder = 'KryptonHub'
-	SaveManager.Ignore = {}
+	SaveManager.Folder = 'KryptonHub';
+    SaveManager.File = 'Basic_Setting';
+	SaveManager.Ignore = {};
 	SaveManager.Parser = {
 		Toggle = {
 			Save = function(idx, object) 
@@ -11,7 +11,6 @@ local SaveManager = {} do
 			Load = function(idx, data)
 				if Toggles[idx] then 
 					Toggles[idx]:SetValue(data.value)
-					print(data.value)
 				end
 			end,
 		},
@@ -67,9 +66,15 @@ local SaveManager = {} do
 		self.Folder = folder;
 		self:BuildFolderTree()
 	end
+    
+	function SaveManager:SetFile(file)
+		self.File = file;
+		self:BuildFolderTree();
+	end
 
-	function SaveManager:Save(name)
-		local fullPath = self.Folder .. '/settings/' .. name .. '.json'
+	function SaveManager:Save()
+		wait(0.1)
+		local fullPath = self.Folder .. '/settings/' .. self.File .. '.json'
 
 		local data = {
 			objects = {}
@@ -98,7 +103,7 @@ local SaveManager = {} do
 	end
 
 	function SaveManager:Load(name)
-		local file = self.Folder .. '/settings/' .. name .. '.json'
+		local file = self.Folder .. '/settings/' .. self.File .. '.json'
 		if not isfile(file) then return false, 'invalid file' end
 
 		local success, decoded = pcall(httpService.JSONDecode, httpService, readfile(file))
@@ -132,6 +137,28 @@ local SaveManager = {} do
 		end
 	end
 
+    function SaveManager:AutoSave(bool)
+        if bool then
+            for idx, option in next, Options do
+				if self.Ignore[idx] then continue end
+                if option.OnChanged then
+                    option:OnChanged(function()
+                        self:Save();
+                    end)
+                end
+            end
+            
+            for idx, toggle in next, Toggles do
+				if SaveManager.Ignore[idx] then continue end
+                if toggle.OnChanged then
+                    toggle:OnChanged(function()
+                        self:Save();
+                    end)
+                end
+            end
+
+        end
+    end
 	SaveManager:BuildFolderTree()
 end
 
