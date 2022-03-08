@@ -141,7 +141,7 @@ local SaveManager = {} do
         coroutine.wrap(function()
             while true do
                 self:Save();
-		task.wait(4);
+		task.wait(1);
             end
         end)();
     end
