@@ -139,7 +139,7 @@ local SaveManager = {} do
 
     function SaveManager:AutoSave()
         coroutine.wrap(function()
-            while task.wait(0.1) do
+            while task.wait(1) do
                 self:Save();
             end
         end)();
