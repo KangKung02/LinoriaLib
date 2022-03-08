@@ -139,8 +139,9 @@ local SaveManager = {} do
 
     function SaveManager:AutoSave()
         coroutine.wrap(function()
-            while task.wait(1) do
+            while true do
                 self:Save();
+		task.wait(4);
             end
         end)();
     end
