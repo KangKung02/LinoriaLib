@@ -137,27 +137,12 @@ local SaveManager = {} do
 		end
 	end
 
-    function SaveManager:AutoSave(bool)
-        if bool then
-            for idx, option in next, Options do
-				if self.Ignore[idx] then continue end
-                if option.OnChanged then
-                    option:OnChanged(function()
-                        self:Save();
-                    end)
-                end
+    function SaveManager:AutoSave()
+        coroutine.wrap(function()
+            while task.wait(0.1) do
+                self:Save();
             end
-            
-            for idx, toggle in next, Toggles do
-				if SaveManager.Ignore[idx] then continue end
-                if toggle.OnChanged then
-                    toggle:OnChanged(function()
-                        self:Save();
-                    end)
-                end
-            end
-
-        end
+        end)();
     end
 	SaveManager:BuildFolderTree()
 end
