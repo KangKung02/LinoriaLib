@@ -140,7 +140,7 @@ local SaveManager = {} do
     function SaveManager:AutoSave()
         coroutine.wrap(function()
             while task.wait(1) do
-		if Toggles["Auto Save"] and Toggles["Auto Save"].Value then
+		if Toggles["AutoSave"] and Toggles["AutoSave"].Value then
                     self:Save();
 		end
             end
