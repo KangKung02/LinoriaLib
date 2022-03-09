@@ -138,13 +138,13 @@ local SaveManager = {} do
 	end
 
     function SaveManager:AutoSave()
-        coroutine.wrap(function()
+        task.spawn(function()
             while task.wait(1) do
 		if Toggles["AutoSave"] and Toggles["AutoSave"].Value then
                     self:Save();
 		end
             end
-        end)();
+        end);
     end
 	SaveManager:BuildFolderTree()
 end
