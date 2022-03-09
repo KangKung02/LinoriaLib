@@ -142,6 +142,7 @@ local SaveManager = {} do
             while true do
 		if Toggles["Auto Save"] and Toggles["Auto Save"].Value then
                     self:Save();
+		    print('Saved');
                     task.wait(1);
 		end
             end
