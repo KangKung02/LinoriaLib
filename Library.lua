@@ -1933,7 +1933,11 @@ do
         function Dropdown:NewList(t)
             Dropdown.Values = (type(t) == "table" and t) or {};
             Dropdown:SetValues();
-            Dropdown:SetValue(nil);
+            if Dropdown.Multi then
+                Dropdown:SetValue({});
+            else
+                Dropdown:SetValue(nil);
+            end
         end
 
         DropdownOuter.InputBegan:Connect(function(Input)
