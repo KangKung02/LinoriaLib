@@ -1,6 +1,6 @@
 local httpService = game:GetService('HttpService')
 local SaveManager = {} do
-	SaveManager.Folder = 'KryptonHub';
+	SaveManager.Folder = RoyxHub';
     SaveManager.File = 'Basic_Setting';
 	SaveManager.Ignore = {};
 	SaveManager.Parser = {
