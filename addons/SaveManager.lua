@@ -53,6 +53,16 @@ local SaveManager = {} do
 					Options[idx]:SetValue({ data.key, data.mode })
 				end
 			end,
+		},
+		Input = {
+			Save = function(idx, object)
+				return { type = 'Input', idx = idx, value = object.Value }
+			end,
+			Load = function(idx, data)
+				if Options[idx] then 
+					Options[idx]:SetValue(data.value)
+				end
+			end,
 		}
 	}
 
@@ -140,13 +150,13 @@ local SaveManager = {} do
     function SaveManager:AutoSave()
         task.spawn(function()
             while task.wait(1) do
-		if Toggles["AutoSave"] and Toggles["AutoSave"].Value then
+                if Toggles["AutoSave"] and Toggles["AutoSave"].Value then
                     self:Save();
-		end
+                end
             end
         end);
     end
-	SaveManager:BuildFolderTree()
+    SaveManager:BuildFolderTree()
 end
 
 return SaveManager
