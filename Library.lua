@@ -2230,8 +2230,8 @@ function Library:CreateWindow(WindowTitle)
     local Outer = Library:Create('Frame', {
         BackgroundColor3 = Color3.new(0, 0, 0);
         BorderSizePixel = 0;
-        Position = UDim2.new(0, 175, 0, 50);
-        Size = UDim2.new(0, 550, 0, 600);
+        Position = UDim2.new(0, 175, 0, -40);
+        Size = UDim2.new(0, 550, 0, 660);
         Visible = false;
         ZIndex = 1;
         Parent = ScreenGui;
