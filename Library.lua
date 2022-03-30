@@ -17,9 +17,10 @@ ScreenGui.Parent = CoreGui;
 
 local Toggles = {};
 local Options = {};
-
+local Ui_Configs = { FirstOnChanged = true };
 getgenv().Toggles = Toggles;
 getgenv().Options = Options;
+getgenv().Ui_Configs = Ui_Configs;
 
 local Library = {
     Registry = {};
@@ -556,7 +557,9 @@ do
 
         function ColorPicker:OnChanged(Func)
             ColorPicker.Changed = Func;
-            Func();
+            if Ui_Configs["FirstOnChanged"] then
+                Func();
+            end
         end;
 
         function ColorPicker:Show()
@@ -1267,7 +1270,9 @@ do
 
         function Textbox:OnChanged(Func)
             Textbox.Changed = Func;
-            Func();
+            if Ui_Configs["FirstOnChanged"] then
+                Func();
+            end
         end;
 
         Groupbox:AddBlank(5);
@@ -1362,7 +1367,9 @@ do
 
         function Toggle:OnChanged(Func)
             Toggle.Changed = Func;
-            Func();
+            if Ui_Configs["FirstOnChanged"] then
+                Func();
+            end
         end;
 
         function Toggle:SetValue(Bool)
@@ -1517,7 +1524,9 @@ do
 
         function Slider:OnChanged(Func)
             Slider.Changed = Func;
-            Func();
+            if Ui_Configs["FirstOnChanged"] then
+                Func();
+            end
         end;
 
         local function Round(Value)
@@ -1902,7 +1911,9 @@ do
 
         function Dropdown:OnChanged(Func)
             Dropdown.Changed = Func;
-            Func();
+            if Ui_Configs["FirstOnChanged"] then
+                Func();
+            end
         end;
 
         function Dropdown:SetValue(Val)
