@@ -17,10 +17,9 @@ ScreenGui.Parent = CoreGui;
 
 local Toggles = {};
 local Options = {};
-local Ui_Configs = { FirstOnChanged = true };
+
 getgenv().Toggles = Toggles;
 getgenv().Options = Options;
-getgenv().Ui_Configs = Ui_Configs;
 
 local Library = {
     Registry = {};
@@ -557,9 +556,7 @@ do
 
         function ColorPicker:OnChanged(Func)
             ColorPicker.Changed = Func;
-            if Ui_Configs["FirstOnChanged"] then
-                Func();
-            end
+            Func();
         end;
 
         function ColorPicker:Show()
@@ -1270,9 +1267,7 @@ do
 
         function Textbox:OnChanged(Func)
             Textbox.Changed = Func;
-            if Ui_Configs["FirstOnChanged"] then
-                Func();
-            end
+            Func();
         end;
 
         Groupbox:AddBlank(5);
@@ -1367,9 +1362,7 @@ do
 
         function Toggle:OnChanged(Func)
             Toggle.Changed = Func;
-            if Ui_Configs["FirstOnChanged"] then
-                Func();
-            end
+            Func();
         end;
 
         function Toggle:SetValue(Bool)
@@ -1524,9 +1517,7 @@ do
 
         function Slider:OnChanged(Func)
             Slider.Changed = Func;
-            if Ui_Configs["FirstOnChanged"] then
-                Func();
-            end
+            Func();
         end;
 
         local function Round(Value)
@@ -1911,9 +1902,7 @@ do
 
         function Dropdown:OnChanged(Func)
             Dropdown.Changed = Func;
-            if Ui_Configs["FirstOnChanged"] then
-                Func();
-            end
+            Func();
         end;
 
         function Dropdown:SetValue(Val)
@@ -1944,11 +1933,7 @@ do
         function Dropdown:NewList(t)
             Dropdown.Values = (type(t) == "table" and t) or {};
             Dropdown:SetValues();
-            if Dropdown.Multi then
-                Dropdown:SetValue({});
-            else
-                Dropdown:SetValue(nil);
-            end
+            Dropdown:SetValue(nil);
         end
 
         DropdownOuter.InputBegan:Connect(function(Input)
@@ -1982,7 +1967,11 @@ do
 
         if Info.Default then
             if Info.Multi then
-                Dropdown.Value[Dropdown.Values[Info.Default]] = true;
+                for _, Value in pairs(Info.Default) do
+                    if table.find(Dropdown.Values, Value) then
+                        Dropdown.Value[Value] = true;
+                    end
+                end
             else
                 Dropdown.Value = Dropdown.Values[Info.Default];
             end;
