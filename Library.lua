@@ -2245,7 +2245,7 @@ function Library:CreateWindow(WindowTitle)
     local Outer = Library:Create('Frame', {
         BackgroundColor3 = Color3.new(0, 0, 0);
         BorderSizePixel = 0;
-        Position = UDim2.new(0, 175, 0, 50);
+        Position = UDim2.new(0, 175, 0, 30);
         Size = UDim2.new(0, 550, 0, 640);
         Visible = false;
         ZIndex = 1;
