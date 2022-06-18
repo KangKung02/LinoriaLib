@@ -1111,6 +1111,10 @@ do
             end
         end
 
+        function Button:VirtualClick()
+            Func();
+        end
+
         Groupbox:AddBlank(5);
         Groupbox:Resize();
 
