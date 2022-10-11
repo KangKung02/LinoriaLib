@@ -112,6 +112,38 @@ local SaveManager = {} do
 		return true
 	end
 
+	function SaveManager:SpecificSave(main, type, idx)
+		local file = self.Folder .. '/settings/' .. self.File .. '.json'
+		if not isfile(file) then return false, 'invalid file' end
+
+		local success, lastData = pcall(function()
+			local str = string.format('return %s["%s"]', main, idx);
+			local data = loadstring(str)();
+			return data;
+		end)
+		if not success then return false, 'invalid format' end
+
+		local success, decoded = pcall(httpService.JSONDecode, httpService, readfile(file));
+        if not success then return false, 'failed to encode data' end;
+
+        local modedData = table.clone(decoded);
+        modedData.objects = {};
+		for _, option in next, decoded.objects do
+            if option.type == type and option.idx == idx then
+                option = self.Parser[option.type].Save(option.idx, lastData);
+            end
+            table.insert(modedData.objects, option);
+        end
+
+		local success, encoded = pcall(httpService.JSONEncode, httpService, modedData)
+		if not success then
+			return false, 'failed to encode data'
+		end
+
+		writefile(file, encoded)
+		return true
+	end
+
 	function SaveManager:Load(name)
 		local file = self.Folder .. '/settings/' .. self.File .. '.json'
 		if not isfile(file) then return false, 'invalid file' end
